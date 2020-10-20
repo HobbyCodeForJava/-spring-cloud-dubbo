@@ -1,4 +1,4 @@
-# -spring-cloud-dubbo
+# spring-cloud dubbo
 微服务技术选型参考
 spring-cloud与dubbo区别：
 服务注册的粒度不同：springcloud或k8s的注册的服务就是微服务应用本身，一个应用作为一个服务整体注册，发现服务后可以请求这个应用的controller中的任意方法；dubbo注册的服务是一个service接口，一个微服务应用可能会注册大量的接口类，没有注册的Service不能被外部调用，dubbo需要把接口和参数pojo打成接口包，作为消费方的约束。调用的层次不同：dubbo作为RPC方式，调用的是Service，通常Spring开发中的Service接口，可以直接作为服务注册（实际上还是要规划一下对外服务的方法和参数，给其它微服务调用的方法和参数和微服务本身的通常不一样，对外参数通常用VO，微服务本身参数经常用DO处理增删改查等操作，所以还是单独写比较好），在controller方法中写Service调用，与调用本地服务写法是一样的。springcloud是REST方式，实际就是访问controller中的方法，在spring里用restTemplate来方便地调用（比httpClient简单很多），但这种写法与调本地方法完全不同。消费端可以用feign伪装成一个接口，这是一种额外的开发任务。
